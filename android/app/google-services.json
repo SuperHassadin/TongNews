@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "428858763865",
+    "firebase_url": "https://tongnews-2a1e1.firebaseio.com",
+    "project_id": "tongnews-2a1e1",
+    "storage_bucket": "tongnews-2a1e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428858763865:android:cd792682fc24ff3c",
+        "android_client_info": {
+          "package_name": "com.hassadin.ketthip.tong_news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428858763865-84h5c3907fhubl1l3mbnq85l54q38aoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hassadin.ketthip.tong_news",
+            "certificate_hash": "24c92e0b5823d142ce477c47b96f38be00540cfe"
+          }
+        },
+        {
+          "client_id": "428858763865-12mucnihpmebik2db0uqnudiadna012b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_VS2pYd71HHK0XwVRbYM7i-wsSaG9jnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428858763865-12mucnihpmebik2db0uqnudiadna012b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
