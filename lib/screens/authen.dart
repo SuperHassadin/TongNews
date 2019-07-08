@@ -29,7 +29,7 @@ class _AuthenState extends State<Authen> {
     await firebaseAuth.currentUser().then((objValue){
       if (objValue != null) {
         print('logined');
-
+        moveToNewlist(context);
 
 
       }
@@ -43,6 +43,8 @@ class _AuthenState extends State<Authen> {
 
 
     var newsListRoute = MaterialPageRoute(builder: (BuildContext context) => NewLists());
+    Navigator.of(context).pushAndRemoveUntil(newsListRoute, (Route<dynamic> route) => false);
+
   }
 
 

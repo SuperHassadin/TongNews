@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tong_news/screens/news_list.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -47,8 +48,9 @@ class _RegisterState extends State<Register> {
           UserUpdateInfo userUpdateInfo = UserUpdateInfo();
           userUpdateInfo.displayName = nameString;
           objValue.updateProfile(userUpdateInfo);
-
           
+          var newsFRoute = MaterialPageRoute(builder: (BuildContext context) => NewLists());
+         Navigator.of(context).pushAndRemoveUntil(newsFRoute, (Route<dynamic> route) => false);
 
         });
   }
