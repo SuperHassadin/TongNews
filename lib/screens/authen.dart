@@ -9,44 +9,34 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
-
   // Explicit
-  FirebaseAuth  firebaseAuth = FirebaseAuth.instance;
-
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final formKey = GlobalKey<FormState>();
+  String emailString, passwordString;
 
   // Method
 
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     loadCurrentUser();
   }
 
   Future loadCurrentUser() async {
-
-
-    await firebaseAuth.currentUser().then((objValue){
+    await firebaseAuth.currentUser().then((objValue) {
       if (objValue != null) {
         print('logined');
         moveToNewlist(context);
-
-
       }
-
     });
-    
-
   }
 
-  void moveToNewlist(BuildContext context){
-
-
-    var newsListRoute = MaterialPageRoute(builder: (BuildContext context) => NewLists());
-    Navigator.of(context).pushAndRemoveUntil(newsListRoute, (Route<dynamic> route) => false);
-
+  void moveToNewlist(BuildContext context) {
+    var newsListRoute =
+        MaterialPageRoute(builder: (BuildContext context) => NewLists());
+    Navigator.of(context)
+        .pushAndRemoveUntil(newsListRoute, (Route<dynamic> route) => false);
   }
-
 
   Widget mySizebox() {
     return SizedBox(
@@ -79,9 +69,9 @@ class _AuthenState extends State<Authen> {
         print('You Click SignUp');
 
         // Create Route
-        var registerRoute = MaterialPageRoute(builder: (BuildContext context) => Register());
+        var registerRoute =
+            MaterialPageRoute(builder: (BuildContext context) => Register());
         Navigator.of(context).push(registerRoute);
-
       },
     );
   }
@@ -93,8 +83,26 @@ class _AuthenState extends State<Authen> {
         'sign In',
         style: TextStyle(color: Colors.white),
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (formKey.currentState.validate()) {
+          formKey.currentState.save();
+          print('Email = $emailString, Pass = $passwordString');
+          checkAuthen();
+        }
+      },
     );
+  }
+
+  Future<void> checkAuthen() async {
+    await firebaseAuth
+        .signInWithEmailAndPassword(
+            email: emailString, password: passwordString)
+        .then((reaponse) {
+      print('Success Login');
+    }).catchError((response) {
+      // String errorString = response.massage;
+      // print('errorString = $errorString');
+    });
   }
 
   Widget emailTextFormfield() {
@@ -105,6 +113,14 @@ class _AuthenState extends State<Authen> {
         child: TextFormField(
           decoration: InputDecoration(
               labelText: 'Email :', helperText: 'your@email.com'),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Please Fill Email';
+            }
+          },
+          onSaved: (String value) {
+            emailString = value;
+          },
         ),
       ),
     );
@@ -117,6 +133,14 @@ class _AuthenState extends State<Authen> {
         obscureText: true,
         decoration: InputDecoration(
             labelText: 'Password :', helperText: 'More 6 Charactor'),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Please Type Password in Blank';
+          }
+        },
+        onSaved: (String value) {
+          passwordString = value;
+        },
       ),
     );
   }
@@ -156,20 +180,23 @@ class _AuthenState extends State<Authen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            colors: [Colors.white, Colors.blue[700]],
-            radius: 2.0, center: Alignment(0, 0)
-          ),
+              colors: [Colors.white, Colors.blue[700]],
+              radius: 2.0,
+              center: Alignment(0, 0)),
         ),
         padding: EdgeInsets.only(top: 80.0),
         alignment: Alignment.topCenter,
-        child: Column(
-          children: <Widget>[
-            showlogo(),
-            showName(),
-            emailTextFormfield(),
-            passwordTextFromfield(),
-            showButton(context),
-          ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: <Widget>[
+              showlogo(),
+              showName(),
+              emailTextFormfield(),
+              passwordTextFromfield(),
+              showButton(context),
+            ],
+          ),
         ),
       ),
     );
